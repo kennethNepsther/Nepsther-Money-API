@@ -5,6 +5,7 @@ import it.nepsthermoney.entity.dto.request.PersonDto;
 import it.nepsthermoney.service.PersonService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,4 +41,10 @@ public class PersonController {
         person =  personService.save(person);
         return ResponseEntity.created( addIdToCurrentUrlPath(person.getId())).body(person);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
+        personService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Person deleted");
+}
 }
