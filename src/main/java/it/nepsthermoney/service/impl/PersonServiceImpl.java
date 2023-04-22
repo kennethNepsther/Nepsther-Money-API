@@ -39,6 +39,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void delete(Long id) {
-        // TODO document why this method is empty
+        findById(id);
+        personRepository.deleteById(id);
     }
 }

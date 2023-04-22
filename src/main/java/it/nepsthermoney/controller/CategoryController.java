@@ -5,6 +5,7 @@ import it.nepsthermoney.entity.dto.request.CategoryDto;
 import it.nepsthermoney.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,5 +40,13 @@ public class CategoryController {
         BeanUtils.copyProperties(categoryDto, category);
         category =  categoryService.save(category);
         return ResponseEntity.created( addIdToCurrentUrlPath(category.getId())).body(category);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
+        categoryService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Category deleted");
+
+
     }
 }
