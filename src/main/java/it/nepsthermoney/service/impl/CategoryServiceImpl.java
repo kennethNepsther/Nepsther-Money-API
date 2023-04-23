@@ -34,11 +34,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Long id, Category category) {
-        return null;
+        Category categoryExist = findById(id);
+        categoryExist.setName(category.getName());
+        return categoryRepository.save(categoryExist);
     }
 
     @Override
     public void delete(Long id) {
-        // TODO document why this method is empty
+        findById(id);
+        categoryRepository.deleteById(id);
     }
 }

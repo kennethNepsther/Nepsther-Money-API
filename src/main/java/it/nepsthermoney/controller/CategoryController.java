@@ -1,7 +1,9 @@
 package it.nepsthermoney.controller;
 
 import it.nepsthermoney.entity.Category;
+import it.nepsthermoney.entity.Person;
 import it.nepsthermoney.entity.dto.request.CategoryDto;
+import it.nepsthermoney.entity.dto.request.PersonDto;
 import it.nepsthermoney.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -40,6 +42,14 @@ public class CategoryController {
         BeanUtils.copyProperties(categoryDto, category);
         category =  categoryService.save(category);
         return ResponseEntity.created( addIdToCurrentUrlPath(category.getId())).body(category);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Category> update(@PathVariable Long id, @Valid @RequestBody CategoryDto categoryDto){
+        var category = new Category();
+        BeanUtils.copyProperties(categoryDto, category);
+        category = categoryService.update(id, category);
+        return ResponseEntity.ok().body(category);
     }
 
     @DeleteMapping("/{id}")
