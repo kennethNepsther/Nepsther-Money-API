@@ -42,6 +42,14 @@ public class PersonController {
         return ResponseEntity.created( addIdToCurrentUrlPath(person.getId())).body(person);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Person> update(@PathVariable Long id,@Valid @RequestBody PersonDto personDto){
+        var person = new Person();
+        BeanUtils.copyProperties(personDto, person);
+         person = personService.update(id, person);
+        return ResponseEntity.ok().body(person);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         personService.delete(id);

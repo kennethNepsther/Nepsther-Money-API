@@ -5,6 +5,7 @@ import it.nepsthermoney.execptions.ObjectNotFoundException;
 import it.nepsthermoney.repository.PersonRepository;
 import it.nepsthermoney.service.PersonService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +35,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person update(Long id, Person person) {
-        return null;
+        Person personExist = findById(id);
+        BeanUtils.copyProperties(person, personExist, "id");
+        return personRepository.save(personExist);
     }
 
     @Override
