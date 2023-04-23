@@ -50,6 +50,12 @@ public class PersonController {
         return ResponseEntity.ok().body(person);
     }
 
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Person> updatePersonStatus(@PathVariable Long id,@Valid @RequestBody Boolean active){
+       personService.updatePersonStatus(id, active);
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         personService.delete(id);
