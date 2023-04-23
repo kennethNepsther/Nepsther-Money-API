@@ -41,8 +41,18 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public void updatePersonStatus(Long id, Boolean active) {
+        Person personExist = findById(id);
+        personExist.setActive(active);
+        personRepository.save(personExist);
+
+    }
+
+    @Override
     public void delete(Long id) {
         findById(id);
         personRepository.deleteById(id);
     }
+
+
 }
