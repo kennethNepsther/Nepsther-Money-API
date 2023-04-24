@@ -1,5 +1,6 @@
 package it.nepsthermoney.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import it.nepsthermoney.enums.ReleaseType;
 import lombok.*;
 
@@ -24,22 +25,23 @@ public class Release implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private  Long id;
+    private Long id;
 
     private String description;
-   private LocalDate dueDate ;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dueDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate paymentDate;
-    private BigDecimal value ;
+    private BigDecimal value;
     private String observation;
     @Enumerated(EnumType.STRING)
     private ReleaseType type;
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private  Category category;
+    private Category category;
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
-
 
 
 }
