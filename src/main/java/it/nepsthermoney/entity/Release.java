@@ -3,6 +3,7 @@ package it.nepsthermoney.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import it.nepsthermoney.enums.ReleaseType;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -26,7 +27,6 @@ public class Release implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
-
     private String description;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dueDate;

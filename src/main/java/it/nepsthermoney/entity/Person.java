@@ -1,5 +1,6 @@
 package it.nepsthermoney.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,11 @@ public class Person implements Serializable {
     private Boolean active;
     @Embedded
     private Address address;
+    @JsonIgnore
+    @Transient
+    public boolean isInactive() {
+        return !this.active;
+    }
 
 
 }
