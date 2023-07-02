@@ -1,8 +1,8 @@
 create table releases (
                           id BIGINT  PRIMARY KEY AUTO_INCREMENT,
                           description VARCHAR(50) NOT NULL ,
-                          dueDate DATE NOT NULL,
-                          paymentDate DATE NOT NULL,
+                          dueDate DATE,
+                          paymentDate DATE,
                           value DECIMAL(10,2) NOT NULL,
                           observation VARCHAR(150),
                           type VARCHAR(20) NOT NULL,

@@ -38,15 +38,14 @@ public class ReleaseController {
     public ResponseEntity<Release> create(@Valid @RequestBody ReleaseDto releaseDto){
         var release = new Release();
         BeanUtils.copyProperties(releaseDto, release);
-        //release =  releaseService.save(release);
-        return ResponseEntity.created( addIdToCurrentUrlPath(release.getId())).body( releaseService.save(release));
+        release =  releaseService.save(release);
+        return ResponseEntity.created( addIdToCurrentUrlPath(release.getId())).body(release);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Release> update(@PathVariable Long id, @Valid @RequestBody ReleaseDto releaseDto){
         var release = new Release();
         BeanUtils.copyProperties(releaseDto, release);
-        //release = releaseService.update(id, release);
         return ResponseEntity.ok().body(releaseService.update(id, release));
     }
 

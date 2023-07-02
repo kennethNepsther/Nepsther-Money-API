@@ -1,5 +1,6 @@
 package it.nepsthermoney.service.impl;
 
+import it.nepsthermoney.entity.Category;
 import it.nepsthermoney.entity.Person;
 import it.nepsthermoney.execptions.ObjectNotFoundException;
 import it.nepsthermoney.repository.PersonRepository;

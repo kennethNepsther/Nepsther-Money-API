@@ -2,6 +2,7 @@ package it.nepsthermoney.execptions.handler;
 
 
 import it.nepsthermoney.execptions.ConflictsException;
+import it.nepsthermoney.execptions.InactivePersonException;
 import it.nepsthermoney.execptions.ObjectNotFoundException;
 import it.nepsthermoney.execptions.error.StandardError;
 import it.nepsthermoney.execptions.error.ValidationError;
@@ -12,7 +13,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -39,9 +39,15 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(ConflictsException.class)
-    public ResponseEntity<StandardError> objectFoundException(ConflictsException foundException) {
+    public ResponseEntity<StandardError> exception(ConflictsException foundException) {
         StandardError errorMessage = new StandardError(System.currentTimeMillis(), HttpStatus.CONFLICT.value(), foundException.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
+    }
+
+    @ExceptionHandler(InactivePersonException.class)
+    public ResponseEntity<StandardError> exception(InactivePersonException foundException) {
+        StandardError errorMessage = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), foundException.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
     }
 
   /*  @ExceptionHandler(UserDisabledException.class)

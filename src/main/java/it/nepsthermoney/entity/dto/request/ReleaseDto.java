@@ -1,5 +1,8 @@
 package it.nepsthermoney.entity.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import it.nepsthermoney.entity.Category;
+import it.nepsthermoney.entity.Person;
 import it.nepsthermoney.enums.ReleaseType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,4 +32,8 @@ public class ReleaseDto {
     private String observation;
     @NotNull(message = "value is required ")
     private ReleaseType type;
+    @NotNull(message = "person is required ")
+    private Person person;
+    @NotNull(message = "category is required ")
+    private Category category;
 }

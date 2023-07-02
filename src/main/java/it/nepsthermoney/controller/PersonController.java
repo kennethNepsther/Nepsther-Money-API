@@ -51,14 +51,14 @@ public class PersonController {
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<Person> updatePersonStatus(@PathVariable Long id,@Valid @RequestBody Boolean active){
+    public ResponseEntity<Object> updatePersonStatus(@PathVariable Long id,@Valid @RequestBody Boolean active){
        personService.updatePersonStatus(id, active);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.OK).body("Status updated successfully");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         personService.delete(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Person deleted");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Person deleted");
 }
 }
