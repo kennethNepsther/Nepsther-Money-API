@@ -2,6 +2,7 @@ package it.nepsthermoney.controller;
 
 import it.nepsthermoney.entity.Release;
 import it.nepsthermoney.entity.dto.request.ReleaseDto;
+import it.nepsthermoney.repository.filter.ReleaseFilter;
 import it.nepsthermoney.service.ReleaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -27,9 +28,16 @@ public class ReleaseController {
         return ResponseEntity.ok((release));
     }
 
-    @GetMapping
+/*    @GetMapping
     public ResponseEntity<List<Release>> findAll() {
         List<Release> release = releaseService.findAll();
+        return ResponseEntity.ok().body(release);
+
+    }*/
+
+    @GetMapping
+    public ResponseEntity<List<Release>> releaseSearch(ReleaseFilter filter) {
+        List<Release> release = releaseService.filterRelease(filter);
         return ResponseEntity.ok().body(release);
 
     }

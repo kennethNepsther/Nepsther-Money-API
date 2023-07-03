@@ -6,6 +6,7 @@ import it.nepsthermoney.entity.Release;
 import it.nepsthermoney.execptions.InactivePersonException;
 import it.nepsthermoney.execptions.ObjectNotFoundException;
 import it.nepsthermoney.repository.ReleaseRepository;
+import it.nepsthermoney.repository.filter.ReleaseFilter;
 import it.nepsthermoney.service.CategoryService;
 import it.nepsthermoney.service.PersonService;
 import it.nepsthermoney.service.ReleaseService;
@@ -57,6 +58,11 @@ public class ReleaseServiceImpl implements ReleaseService {
     public void delete(Long id) {
         findById(id);
         releaseRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Release> filterRelease(ReleaseFilter releaseFilter) {
+        return releaseRepository.filterRelease(releaseFilter);
     }
 
 
