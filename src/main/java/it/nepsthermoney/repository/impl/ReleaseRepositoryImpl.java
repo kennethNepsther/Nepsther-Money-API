@@ -3,6 +3,9 @@ package it.nepsthermoney.repository.impl;
 import it.nepsthermoney.entity.Release;
 import it.nepsthermoney.repository.ReleaseRepositoryQuery;
 import it.nepsthermoney.repository.filter.ReleaseFilter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,7 +21,7 @@ public class ReleaseRepositoryImpl implements ReleaseRepositoryQuery {
     @PersistenceContext
     private EntityManager entityManager;
     @Override
-    public List<Release> filterRelease(ReleaseFilter releaseFilter) {
+    public Page<Release> filterRelease(ReleaseFilter releaseFilter, Pageable pageable) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Release> criteria = builder.createQuery(Release.class);
         Root<Release> root = criteria.from(Release.class);
@@ -29,7 +32,27 @@ public class ReleaseRepositoryImpl implements ReleaseRepositoryQuery {
 
 
         TypedQuery<Release> query = entityManager.createQuery(criteria);
-        return query.getResultList();
+        paginationRestrictionsQuery(query,pageable);
+        return new PageImpl<>(query.getResultList(),pageable, totalPages(releaseFilter)) ;
+    }
+
+    private Long totalPages(ReleaseFilter releaseFilter) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+        Root<Release> root = criteria.from(Release.class);
+
+        Predicate[] predicates = createRestrictions(releaseFilter, builder,root);
+        criteria.where(predicates);
+        criteria.select(builder.count(root));
+        return entityManager.createQuery(criteria).getSingleResult();
+    }
+
+    private void paginationRestrictionsQuery(TypedQuery<Release> query, Pageable pageable) {
+        int currentPage = pageable.getPageNumber();
+        int totalElementToShowInPage = pageable.getPageSize();
+        int firstElementToShowInPage =currentPage * totalElementToShowInPage;
+        query.setFirstResult(firstElementToShowInPage);
+        query.setMaxResults(totalElementToShowInPage);
     }
 
     private Predicate[] createRestrictions(ReleaseFilter releaseFilter, CriteriaBuilder builder, Root<Release> root) {
