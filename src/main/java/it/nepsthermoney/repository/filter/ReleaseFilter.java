@@ -1,6 +1,5 @@
 package it.nepsthermoney.repository.filter;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -6,6 +6,8 @@ import it.nepsthermoney.repository.filter.ReleaseFilter;
 import it.nepsthermoney.service.ReleaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +38,8 @@ public class ReleaseController {
     }*/
 
     @GetMapping
-    public ResponseEntity<List<Release>> releaseSearch(ReleaseFilter filter) {
-        List<Release> release = releaseService.filterRelease(filter);
+    public ResponseEntity<Page<Release>> releaseSearch(ReleaseFilter filter, Pageable pageable) {
+        Page<Release> release = releaseService.filterRelease(filter, pageable);
         return ResponseEntity.ok().body(release);
 
     }

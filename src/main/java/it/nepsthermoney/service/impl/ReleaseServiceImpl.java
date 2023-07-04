@@ -11,6 +11,8 @@ import it.nepsthermoney.service.CategoryService;
 import it.nepsthermoney.service.PersonService;
 import it.nepsthermoney.service.ReleaseService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,8 +63,8 @@ public class ReleaseServiceImpl implements ReleaseService {
     }
 
     @Override
-    public List<Release> filterRelease(ReleaseFilter releaseFilter) {
-        return releaseRepository.filterRelease(releaseFilter);
+    public Page<Release> filterRelease(ReleaseFilter releaseFilter, Pageable pageable) {
+        return releaseRepository.filterRelease(releaseFilter, pageable);
     }
 
 
